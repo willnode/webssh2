@@ -11,12 +11,19 @@ const config = require('./config');
 
 exports.reauth = function reauth(req, res) {
   let { referer } = req.headers;
-  if (!validator.isURL(referer, { host_whitelist: ['localhost'] })) {
-    console.error(
-      `WebSSH2 (${req.sessionID}) ERROR: Referrer '${referer}' for '/reauth' invalid. Setting to '/' which will probably fail.`
-    );
-    referer = '/';
+
+  try {
+    const parsedUrl = new URL(referer);
+
+    if (parsedUrl.origin.endsWith(`://${req.headers.host}`)) {
+      referer = parsedUrl.pathname;
+    } else {
+      referer = '/ssh/host/' + config.ssh.host;
+    }
+  } catch (error) {
+    referer = '/ssh/host/' + config.ssh.host;
   }
+
   res
     .status(401)
     .send(
