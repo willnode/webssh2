@@ -1,6 +1,8 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import { io } from 'socket.io-client';
 import { Terminal } from '@xterm/xterm';
+import { ClipboardAddon } from '@xterm/addon-clipboard';
+import { WebglAddon } from '@xterm/addon-webgl';
 import { FitAddon } from '@xterm/addon-fit';
 import { library, dom } from '@fortawesome/fontawesome-svg-core';
 import { faBars, faClipboard, faDownload, faRotateRight, faKey, faCog } from '@fortawesome/free-solid-svg-icons';
@@ -42,8 +44,12 @@ const header = document.getElementById('header');
 const footer = document.getElementById('footer');
 const countdown = document.getElementById('countdown');
 const fitAddon = new FitAddon();
+const clipboardAddon = new ClipboardAddon();
+const webglAddon = new WebglAddon();
 const terminalContainer = document.getElementById('terminal-container');
 term.loadAddon(fitAddon);
+term.loadAddon(clipboardAddon);
+term.loadAddon(webglAddon);
 term.open(terminalContainer);
 term.focus();
 fitAddon.fit();

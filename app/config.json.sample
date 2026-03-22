@@ -30,6 +30,7 @@
     "scrollback": 10000,
     "tabStopWidth": 8,
     "bellStyle": "sound",
+    "fontFamily": "'NerdFontsSymbols Nerd Font', courier-new, courier, monospace",
     "fontSize": 14
   },
   "header": {
